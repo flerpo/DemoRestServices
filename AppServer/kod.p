@@ -22,7 +22,7 @@ USING Progress.Json.ObjectModel.JsonObject FROM PROPATH.
 
  
 /* ***************************  Main Block  *************************** */
-{kod.i}
+{includes/kod.i}
 
 
 

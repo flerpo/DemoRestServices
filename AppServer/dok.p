@@ -23,7 +23,7 @@ USING Progress.Json.ObjectModel.JsonObject FROM PROPATH.
  
 /* ***************************  Main Block  *************************** */
 
-DEFINE TEMP-TABLE ttDok LIKE dok .
+{includes/dok.i}
 
 /* **********************  Internal Procedures  *********************** */
 

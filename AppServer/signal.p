@@ -22,7 +22,7 @@ USING Progress.Json.ObjectModel.JsonObject FROM PROPATH.
 
 {includes/hsPubLaesAGSAerendeKomplDetaljLista002DsUt.i } 
 /* ***************************  Main Block  *************************** */
-{signal.i}
+{includes/signal.i}
 
 
 /* **********************  Internal Procedures  *********************** */
