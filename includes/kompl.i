@@ -5,8 +5,5 @@
    
 DEFINE TEMP-TABLE ttTmp{&prefix}Kompl NO-UNDO XML-NODE-NAME 'Kompletteringar':U 
   {&REFERENCE-ONLY}
-  FIELD NyckelId                AS   CHARACTER INIT '1' SERIALIZE-HIDDEN
+  FIELD NyckelId                AS   CHARACTER INIT '1' 
   
-
-
-

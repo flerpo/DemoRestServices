@@ -29,9 +29,10 @@ DEFINE TEMP-TABLE ttAerendeTFA LIKE aerendeTfa.
 DEFINE TEMP-TABLE ttAerendeEngAktiv LIKE aerendeEngAktiv.
 DEFINE TEMP-TABLE ttAerendeSags LIKE aerendeSags.
 
+
+
 DEFINE DATASET dsAerende FOR ttAerende, ttAerendeEng, ttAerendeAgs, ttAerendeTFA, ttAerendeEngAktiv, ttAerendeSags
     .
-
 
 /* **********************  Internal Procedures  *********************** */
 
@@ -40,6 +41,8 @@ PROCEDURE get_aerende_on_aerendeid:
      Purpose:
      Notes:
     ------------------------------------------------------------------------------*/
+    
+    
     DEFINE INPUT PARAMETER pAerendeId AS DECIMAL.
     DEFINE OUTPUT PARAMETER oSvar AS JsonObject.
     DEFINE VARIABLE iRaeknare AS INTEGER NO-UNDO.
@@ -56,6 +59,8 @@ PROCEDURE get_aerende_on_aerendeid:
     BUFFER ttAerendeTfa:ATTACH-DATA-SOURCE(DATA-SOURCE srcAerendeTfa:HANDLE,?,?).
     BUFFER ttAerendeSags:ATTACH-DATA-SOURCE(DATA-SOURCE srcAerendeSags:HANDLE,?,?).
     BUFFER ttAerendeEngAktiv:ATTACH-DATA-SOURCE(DATA-SOURCE srcAerendeEngAktiv:HANDLE,?,?).
+    
+
 
     
     DATASET dsAerende:HANDLE:ADD-RELATION(BUFFER ttAerende:HANDLE,BUFFER ttAerendeEng:HANDLE, 'aerendeId,AerendeId', FALSE,TRUE).

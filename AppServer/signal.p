@@ -20,7 +20,7 @@ USING Progress.Json.ObjectModel.JsonObject FROM PROPATH.
 
 /* ********************  Preprocessor Definitions  ******************** */
 
-{includes/hsPubLaesAGSAerendeKomplDetaljLista002DsUt.i } 
+{komplDsUt.i }. 
 /* ***************************  Main Block  *************************** */
 {includes/signal.i}
 
@@ -183,16 +183,16 @@ PROCEDURE get_kompl_on_aerendeid:
                 END.
             END CASE.
       
-            FIND FIRST ttTmpAerendeKomplLista NO-LOCK WHERE ttTmpAerendeKomplLista.AerendeId = pdeAerendeid NO-ERROR.
-            IF AVAIL ttTmpAerendeKomplLista THEN 
+            FIND FIRST ttLista NO-LOCK WHERE ttLista.AerendeId = pdeAerendeid NO-ERROR.
+            IF AVAIL ttLista THEN 
             DO:
                 NEXT haemta.
             END.
  
             /* Spara undan de aktuella värdena i en temptabell */ 
-            CREATE ttTmpAerendeKomplLista. 
+            CREATE ttLista. 
             ASSIGN 
-                ttTmpAerendeKomplLista.AerendeId = pdeAerendeId
+                ttLista.AerendeId = pdeAerendeId
              
                 .
             /* Används för att få en fin xml ut */       

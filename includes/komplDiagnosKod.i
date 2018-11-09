@@ -5,7 +5,7 @@
    
 DEFINE TEMP-TABLE ttTmp{&prefix}DiagnosKod NO-UNDO SERIALIZE-NAME 'AdditionDiagnosis':U 
   {&REFERENCE-ONLY}
-  FIELD NyckelId                AS   CHARACTER  INIT '1' SERIALIZE-HIDDEN
+  FIELD NyckelId                AS   CHARACTER  INIT '1' 
   FIELD SignalId                LIKE signal.SignalId SERIALIZE-NAME "Id"
   FIELD KomplTyp                AS   CHARACTER INIT 'DIAGNOSKOD' SERIALIZE-NAME "AdditionType"  
   FIELD GaellerDatum            AS   DATE   SERIALIZE-NAME "Date"
