@@ -177,7 +177,7 @@ PROCEDURE get_kompl_on_aerendeid:
                  ttTmpAarsInkomst.GaellerAnstOrgNr = IF (AVAIL introrg AND intrOrg.OrgNr <> '') THEN intrOrg.OrgNr ELSE ''
                  ttTmpAarsInkomst.SignalId    = signal.signalid.
                     END.
-                OTHERWISE 
+                OTHERWISE  
                 DO: /* */
                     NEXT haemta.
                 END.
