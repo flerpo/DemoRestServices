@@ -23,7 +23,7 @@ DEFINE TEMP-TABLE ttLista NO-UNDO SERIALIZE-NAME 'CaseAdditions':U
 
 DEFINE DATASET dsUt  SERIALIZE-NAME 'CaseAdditionList':U
     {&REFERENCE-ONLY}
-    FOR ttLista,ttTmpKompl,ttTmpDiagnosKod,ttTmpYrke,ttTmpFullmakt
+    FOR ttLista,ttTmpKompl,ttTmpDiagnosKod,ttTmpYrke,ttTmpFullmakttt
     ,ttTmpDelaegare,ttTmpSexMaanader,ttTmpFlerArbGiv,ttTmpArbSkada,ttTmpAarsInkomst
     DATA-RELATION relation1 FOR ttLista,ttTmpKompl
     RELATION-FIELDS (NyckelId,NyckelId) NESTED FOREIGN-KEY-HIDDEN

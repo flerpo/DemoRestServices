@@ -74,18 +74,17 @@ CLASS AerendeHandler INHERITS WebHandler:
         MESSAGE 'Pathparameter IntrId: 'poRequest:GetPathParameter('intrid')
         VIEW-AS ALERT-BOX.
         
+        RUN aerende.p SINGLE-RUN SET hHandle.
         
         CASE ENTRY(3,poRequest:PathInfo, "/"):
             WHEN "lista" THEN
                 DO:
                     
-                    IF LENGTH (poRequest:GetPathParameter('intrid')) > 10 THEN RETURN 400.
+                    IF LENGTH (poRequest:GetPathParameter('intrid')) > 10 THEN RETURN 403.
                     
                     IF poRequest:GetPathParameter('intrid') <> '' THEN 
                     DO:
-                        RUN aerende.p SINGLE-RUN SET hHandle.
                         RUN get_aerenden_on_intrid IN hHandle (INPUT poRequest:GetPathParameter('intrid'), OUTPUT oResponseFromCall).
-                
                     END.
 
                 END.
@@ -94,9 +93,14 @@ CLASS AerendeHandler INHERITS WebHandler:
                 END.
             WHEN 'detalj' THEN 
                 DO:
+                    IF poRequest:GetPathParameter('aerendeid') <> '' THEN 
+                    DO:
+                        RUN get_aerende_on_aerendeid IN hHandle (INPUT poRequest:GetPathParameter('aerendeid'), OUTPUT oResponseFromCall).
+                    END.
                 END.
         END CASE.
         
+        DELETE OBJECT hHandle.
         
         
         
