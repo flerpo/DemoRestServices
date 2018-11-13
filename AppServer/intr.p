@@ -22,7 +22,7 @@ USING Progress.Json.ObjectModel.JsonObject FROM PROPATH.
 
  
 /* ***************************  Main Block  *************************** */
-{includes/intr.i}
+{includes/intr.i}.
 
 
 /* **********************  Internal Procedures  *********************** */
@@ -32,30 +32,30 @@ PROCEDURE get_Intr:
      Purpose:
      Notes:
     ------------------------------------------------------------------------------*/
-    DEFINE INPUT PARAMETER persnr AS CHARACTER.
-    DEFINE OUTPUT PARAMETER mupp AS JsonObject.
+    DEFINE INPUT PARAMETER pcpersnr AS CHARACTER.
+    DEFINE OUTPUT PARAMETER intrObject AS JsonObject.
     
+    MESSAGE 'letar efter inne i tjänsten: ' pcPersNr
+    VIEW-AS ALERT-BOX.
+    
+    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntr:HANDLE, 'intrId,IntrId', FALSE,TRUE).
+    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrOrg:HANDLE, 'intrId,IntrId', FALSE,TRUE).
+    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrAdop:HANDLE, 'intrId,IntrId', FALSE,TRUE).
+    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttintrabfarbgivintrhist:HANDLE, 'intrId,IntrId', FALSE,TRUE).
+    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrAktiv:HANDLE, 'intrId,IntrId', FALSE,TRUE).
+    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntrPersHist:HANDLE, 'intrId,IntrId', FALSE,TRUE).
+    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrSkatt:HANDLE, 'intrId,IntrId', FALSE,TRUE).
+    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrTillh:HANDLE, 'intrId,IntrId', FALSE,TRUE).
+    DATA-SOURCE srcIntrPers:QUERY:QUERY-PREPARE(DATA-SOURCE srcIntrPers:QUERY:PREPARE-STRING + SUBSTITUTE(" WHERE intrpers.persNr = '&1' ", pcpersnr)).
     
 
     ETIME(YES).
-    FIND FIRST intrPers NO-LOCK WHERE intrPers.PersNr = persNr NO-ERROR.
-    IF NOT AVAILABLE intrpers THEN 
-    DO:
-        mupp = NEW JsonObject().
-        mupp:Add('antal', 0).
-        RETURN.
-    END.
-    
-    FIND FIRST intr NO-LOCK WHERE intr.IntrId = intrPers.IntrId NO-ERROR.
-
-    BUFFER-COPY intr TO ttIntr.
-    BUFFER-COPY intrPers TO ttintrPers.
-
-    mupp = NEW JsonObject().
+    DATASET dsIntr:FILL().
+    intrObject = NEW JsonObject().
     
     DEFINE VARIABLE lok AS LOGICAL NO-UNDO.
-    DATASET dsIntr:WRITE-JSON ("JsonObject",mupp, TRUE).
-    mupp:Add('anropstid', STRING(ETIME) + 'ms').
+    DATASET dsIntr:WRITE-JSON ("JsonObject",intrObject, TRUE).
+    intrObject:Add('anropstid', STRING(ETIME) + 'ms').
     
 END PROCEDURE.
 

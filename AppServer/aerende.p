@@ -24,7 +24,6 @@ USING Progress.Json.ObjectModel.JsonObject FROM PROPATH.
 /* ***************************  Main Block  *************************** */
 {includes/aerende.i}.
 
-
 /* **********************  Internal Procedures  *********************** */
 
 PROCEDURE get_aerende_on_aerendeid:
@@ -43,6 +42,7 @@ PROCEDURE get_aerende_on_aerendeid:
     DATASET dsAerende:HANDLE:ADD-RELATION(BUFFER ttAerende:HANDLE,BUFFER ttAerendeSags:HANDLE, 'aerendeId,AerendeId', FALSE,TRUE).
     DATASET dsAerende:HANDLE:ADD-RELATION(BUFFER ttAerendeEng:HANDLE,BUFFER ttAerendeEngAktiv:HANDLE, 'engid,engid', FALSE,TRUE).
     DATA-SOURCE srcAerende:QUERY:QUERY-PREPARE(DATA-SOURCE srcAerende:QUERY:PREPARE-STRING + SUBSTITUTE(" WHERE aerende.aerendeid = '&1' ", pAerendeId)).
+    
     
     ETIME(YES).
     DATASET dsAerende:FILL ().
@@ -63,6 +63,46 @@ PROCEDURE get_aerende_on_aerendeid:
         END.
     END.
     
+    FOR EACH ttAerendeEng:
+        IF ttAerendeEng.Engtypavk <> '' THEN 
+        DO:
+            FIND FIRST Kod NO-LOCK WHERE Kod.Avk = ttAerendeEng.Engtypavk AND Kod.TermKod = 'aerendeeng.Engtypavk' NO-ERROR.
+            IF AVAILABLE Kod THEN ASSIGN ttAerendeEng.Engtyp = Kod.Namn.
+        END.
+        
+    END.
+    
+    FOR EACH ttAerendeAgs:
+        IF ttAerendeAgs.AnmArbSkAvk <> '' THEN 
+        DO:
+            FIND FIRST Kod NO-LOCK WHERE Kod.Avk = ttAerendeAgs.AnmArbSkAvk AND Kod.TermKod = 'aerendeags.AnmArbSkAvk' NO-ERROR.
+            IF AVAILABLE Kod THEN ASSIGN ttAerendeAgs.AnmArbSk = Kod.Namn.
+        END.
+            
+        IF ttAerendeAgs.ArbloesTakSjukpAvk <> '' THEN 
+        DO:
+            FIND FIRST Kod NO-LOCK WHERE Kod.Avk = ttAerendeAgs.ArbloesTakSjukpAvk AND Kod.TermKod = 'aerendeags.ArbloesTakSjukpAvk' NO-ERROR.
+            IF AVAILABLE Kod THEN ASSIGN ttAerendeAgs.ArbloesTakSjukp = Kod.Namn.
+        END.
+        IF ttAerendeAgs.FoerdInfoTypAvk <> '' THEN 
+        DO:
+            FIND FIRST Kod NO-LOCK WHERE Kod.Avk = ttAerendeAgs.FoerdInfoTypAvk AND Kod.TermKod = 'aerendeags.FoerdInfoTypAvk' NO-ERROR.
+            IF AVAILABLE Kod THEN ASSIGN ttAerendeAgs.FoerdInfoTyp = Kod.Namn.
+        END.
+        IF ttAerendeAgs.KvalStatAvk <> '' THEN 
+        DO:
+            FIND FIRST Kod NO-LOCK WHERE Kod.Avk = ttAerendeAgs.KvalStatAvk AND Kod.TermKod = 'aerendeags.KvalStatAvk' NO-ERROR.
+            IF AVAILABLE Kod THEN ASSIGN ttAerendeAgs.KvalStat = Kod.Namn.
+        END.
+        IF ttAerendeAgs.SjukfUtrAvk <> '' THEN 
+        DO:
+            FIND FIRST Kod NO-LOCK WHERE Kod.Avk = ttAerendeAgs.SjukfUtrAvk AND Kod.TermKod = 'aerendeags.SjukfUtrAvk' NO-ERROR.
+            IF AVAILABLE Kod THEN ASSIGN ttAerendeAgs.SjukfUtr = Kod.Namn.
+        END.
+        
+    END.
+        
+   
     DATASET  dsAerende:WRITE-JSON ("JsonObject",oSvar, TRUE).
     oSvar:Add('anropstid', STRING(ETIME) + 'ms').
     

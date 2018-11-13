@@ -15,44 +15,39 @@
   
   /* ***************************  Main Block  *************************** */
   
-  /** Dynamically generated schema file **/
-   
+
+{includes\intrtab.i}.
+{includes\intrperstab.i}.
+{includes\intrabfarbgivintrhisttab.i}.
+{includes\intradoptab.i}.
+{includes\intraktivtab.i}.
+{includes\introrgtab.i}.
+{includes\intrpershisttab.i}.
+{includes\intrskatttab.i}.
+{includes\intrtillhtab.i}.
+
+
+DEFINE DATASET dsIntr SERIALIZE-NAME 'StakeholderDetails'
+    FOR ttIntr, ttIntrPers, ttIntrAbfArbGivIntrHist, ttIntrAdop, ttIntrAktiv, ttIntrOrg, ttIntrPersHist, ttIntrSkatt, ttIntrTillh.
+
     
-DEFINE TEMP-TABLE ttintr 
-FIELD IntrId AS DECIMAL INITIAL "0"
-FIELD IntrTypAvk AS CHARACTER
-FIELD KopplId AS DECIMAL INITIAL "0"
-FIELD Inaktiv AS LOGICAL INITIAL "no"
-FIELD InaktivAvIntrId AS DECIMAL INITIAL "0"
-INDEX Intr IS  PRIMARY  UNIQUE  IntrId  ASCENDING 
-INDEX KopplId IS  UNIQUE  KopplId  ASCENDING . 
+DEFINE DATA-SOURCE srcIntr                      FOR intr.
+DEFINE DATA-SOURCE srcIntrPers                  FOR intrPers.
+DEFINE DATA-SOURCE srcIntrAbfArbGivIntrHist     FOR intrAbfArbGivIntrHist.
+DEFINE DATA-SOURCE srcIntrAdop                  FOR intrAdop .
+DEFINE DATA-SOURCE srcIntrAktiv                 FOR intrAktiv .
+DEFINE DATA-SOURCE srcIntrOrg                   FOR intrOrg .
+DEFINE DATA-SOURCE srcIntrPersHist              FOR intrPersHist  .
+DEFINE DATA-SOURCE srcIntrSkatt                 FOR intrSkatt  .
+DEFINE DATA-SOURCE srcIntrTillh                 FOR intrTillh  .
 
-DEFINE TEMP-TABLE ttintrPers
-FIELD IntrId AS DECIMAL INITIAL "0"
-FIELD Sekel AS CHARACTER
-FIELD PersNr AS CHARACTER
-FIELD ENamn AS CHARACTER
-FIELD FNamn AS CHARACTER
-FIELD DoedDat AS CHARACTER
-FIELD SkyddUppg AS LOGICAL INITIAL "no"
-FIELD HaenvSekel AS CHARACTER
-FIELD HaenvPersNr AS CHARACTER
-FIELD AnvId AS DECIMAL INITIAL "0"
-FIELD ManSkyddUppg AS CHARACTER
-FIELD IntrPersGuid AS CHARACTER
-FIELD SancListAvk AS CHARACTER
-INDEX ENamn  ENamn  ASCENDING 
-INDEX FNamn  FNamn  ASCENDING 
-INDEX HaenvPersNr  HaenvPersNr  ASCENDING 
-INDEX HaenvSekel  HaenvSekel  ASCENDING 
-INDEX IntrPers IS  PRIMARY  UNIQUE  IntrId  ASCENDING 
-INDEX IntrPersGuid  IntrPersGuid  ASCENDING 
-INDEX ManSkyddUppg  ManSkyddUppg  ASCENDING 
-INDEX PersNr  PersNr  ASCENDING 
-INDEX SancListAvk  SancListAvk  ASCENDING 
-INDEX Sekel  Sekel  ASCENDING . 
+BUFFER ttIntr:ATTACH-DATA-SOURCE(DATA-SOURCE srcIntr:HANDLE,?,?).
+BUFFER ttIntrPers:ATTACH-DATA-SOURCE(DATA-SOURCE srcIntrPers:HANDLE,?,?).
+BUFFER ttIntrAbfArbGivIntrHist:ATTACH-DATA-SOURCE(DATA-SOURCE srcIntrAbfArbGivIntrHist:HANDLE,?,?).
+BUFFER ttIntrAdop:ATTACH-DATA-SOURCE(DATA-SOURCE srcIntrAdop:HANDLE,?,?).
+BUFFER ttIntrAktiv:ATTACH-DATA-SOURCE(DATA-SOURCE srcIntrAktiv:HANDLE,?,?).
+BUFFER ttIntrOrg:ATTACH-DATA-SOURCE(DATA-SOURCE srcIntrOrg:HANDLE,?,?).
+BUFFER ttIntrPersHist:ATTACH-DATA-SOURCE(DATA-SOURCE srcIntrPersHist:HANDLE,?,?).
+BUFFER ttIntrSkatt:ATTACH-DATA-SOURCE(DATA-SOURCE srcIntrSkatt:HANDLE,?,?).
+BUFFER ttIntrTillh:ATTACH-DATA-SOURCE(DATA-SOURCE srcIntrTillh:HANDLE,?,?).
 
-
-DEFINE DATASET dsintr FOR ttintr, ttintrPers
- DATA-RELATION dr FOR ttintr, ttintrPers
-  RELATION-FIELDS(intrId, intrId).

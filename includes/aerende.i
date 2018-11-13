@@ -19,13 +19,15 @@
    
 	
 {includes/aerendetab.i}.
-DEFINE TEMP-TABLE ttAerendeEng LIKE aerendeEng.
-DEFINE TEMP-TABLE ttAerendeAgs LIKE aerendeAgs.
+{includes/aerendeengtab.i}.
+{includes/aerendeagstab.i}.
+
 DEFINE TEMP-TABLE ttAerendeTFA LIKE aerendeTfa.
 DEFINE TEMP-TABLE ttAerendeEngAktiv LIKE aerendeEngAktiv.
 DEFINE TEMP-TABLE ttAerendeSags LIKE aerendeSags.
 
-DEFINE DATASET dsAerende FOR ttAerende, ttAerendeEng, ttAerendeAgs, ttAerendeTFA, ttAerendeEngAktiv, ttAerendeSags.
+DEFINE DATASET dsAerende SERIALIZE-NAME 'ClaimDetails' 
+FOR ttAerende, ttAerendeEng, ttAerendeAgs, ttAerendeTFA, ttAerendeEngAktiv, ttAerendeSags.
 
 DEFINE DATA-SOURCE srcAerendeEng              FOR aerendeEng.
 DEFINE DATA-SOURCE srcAerende                 FOR aerende.
