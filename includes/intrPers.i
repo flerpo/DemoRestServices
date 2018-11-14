@@ -16,13 +16,13 @@
   /* ***************************  Main Block  *************************** */
   
 
-{includes\intrtab.i}.
-{includes\intrperstab.i}.
-{includes\intradoptab.i}.
-{includes\intraktivtab.i}.
-{includes\intrpershisttab.i}.
-{includes\intrskatttab.i}.
-{includes\intrtillhtab.i}.
+{includes\intrtabeller\intrtab.i}.
+{includes\intrtabeller\intrperstab.i}.
+{includes\intrtabeller\intradoptab.i}.
+{includes\intrtabeller\intraktivtab.i}.
+{includes\intrtabeller\intrpershisttab.i}.
+{includes\intrtabeller\intrskatttab.i}.
+{includes\intrtabeller\intrtillhtab.i}.
 
 
 DEFINE DATASET dsIntrPers SERIALIZE-NAME 'StakeholderDetails'

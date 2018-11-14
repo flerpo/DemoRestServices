@@ -16,9 +16,9 @@
   /* ***************************  Main Block  *************************** */
   
 
-{includes\intrtab.i}.
-{includes\intrabfarbgivintrhisttab.i}.
-{includes\introrgtab.i}.
+{includes\intrtabeller\intrtab.i}.
+{includes\intrtabeller\intrabfarbgivintrhisttab.i}.
+{includes\intrtabeller\introrgtab.i}.
 
 
 DEFINE DATASET dsIntrOrg SERIALIZE-NAME 'StakeholderDetails'
