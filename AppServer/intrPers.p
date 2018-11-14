@@ -22,12 +22,12 @@ USING Progress.Json.ObjectModel.JsonObject FROM PROPATH.
 
  
 /* ***************************  Main Block  *************************** */
-{includes/intr.i}.
+{includes/intrPers.i}.
 
 
 /* **********************  Internal Procedures  *********************** */
 
-PROCEDURE get_Intr:
+PROCEDURE get_intr_on_persnr:
     /*------------------------------------------------------------------------------
      Purpose:
      Notes:
@@ -36,26 +36,28 @@ PROCEDURE get_Intr:
     DEFINE OUTPUT PARAMETER intrObject AS JsonObject.
     
     MESSAGE 'letar efter inne i tjänsten: ' pcPersNr
-    VIEW-AS ALERT-BOX.
+        VIEW-AS ALERT-BOX.     
+   
     
-    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntr:HANDLE, 'intrId,IntrId', FALSE,TRUE).
-    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrOrg:HANDLE, 'intrId,IntrId', FALSE,TRUE).
-    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrAdop:HANDLE, 'intrId,IntrId', FALSE,TRUE).
-    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttintrabfarbgivintrhist:HANDLE, 'intrId,IntrId', FALSE,TRUE).
-    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrAktiv:HANDLE, 'intrId,IntrId', FALSE,TRUE).
-    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntrPersHist:HANDLE, 'intrId,IntrId', FALSE,TRUE).
-    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrSkatt:HANDLE, 'intrId,IntrId', FALSE,TRUE).
-    DATASET dsIntr:HANDLE:ADD-RELATION(BUFFER ttIntr:HANDLE,BUFFER ttIntrTillh:HANDLE, 'intrId,IntrId', FALSE,TRUE).
+    
+    DATASET dsIntrPers:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntr:HANDLE, 'IntrId,IntrId', FALSE,TRUE).
+    DATASET dsIntrPers:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntrAdop:HANDLE, 'IntrId,IntrId', FALSE,TRUE).
+    DATASET dsIntrPers:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntrAktiv:HANDLE, 'IntrId,IntrId', FALSE,TRUE).
+    DATASET dsIntrPers:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntrPersHist:HANDLE, 'IntrId,IntrId', FALSE,TRUE).
+    DATASET dsIntrPers:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntrSkatt:HANDLE, 'IntrId,IntrId', FALSE,TRUE).
+    DATASET dsIntrPers:HANDLE:ADD-RELATION(BUFFER ttIntrPers:HANDLE,BUFFER ttIntrTillh:HANDLE, 'IntrId,IntrId', FALSE,TRUE).
     DATA-SOURCE srcIntrPers:QUERY:QUERY-PREPARE(DATA-SOURCE srcIntrPers:QUERY:PREPARE-STRING + SUBSTITUTE(" WHERE intrpers.persNr = '&1' ", pcpersnr)).
     
 
     ETIME(YES).
-    DATASET dsIntr:FILL().
+    DATASET dsIntrPers:FILL().
     intrObject = NEW JsonObject().
     
     DEFINE VARIABLE lok AS LOGICAL NO-UNDO.
-    DATASET dsIntr:WRITE-JSON ("JsonObject",intrObject, TRUE).
+    DATASET dsIntrPers:WRITE-JSON ("JsonObject",intrObject, TRUE).
     intrObject:Add('anropstid', STRING(ETIME) + 'ms').
     
 END PROCEDURE.
+
+
 

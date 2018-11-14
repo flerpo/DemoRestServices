@@ -65,20 +65,25 @@ CLASS IntrHandler INHERITS WebHandler:
 	
         DEFINE VARIABLE oResponse         AS OpenEdge.Net.HTTP.IHttpResponse NO-UNDO.
         DEFINE VARIABLE oWriter           AS OpenEdge.Web.WebResponseWriter  NO-UNDO.
-/*        DEFINE VARIABLE oBody             AS LONGCHAR                        NO-UNDO.*/
+        /*        DEFINE VARIABLE oBody             AS LONGCHAR                        NO-UNDO.*/
         DEFINE VARIABLE hHandle           AS HANDLE                          NO-UNDO.
         DEFINE VARIABLE oResponseFromCall AS JsonObject                      NO-UNDO.
             
             
         MESSAGE 'letar efter: ' poRequest:GetPathParameter('personalnumber')
-        VIEW-AS ALERT-BOX.    
+            VIEW-AS ALERT-BOX.    
             
-        RUN intr.p SINGLE-RUN SET hHandle.
         
         CASE ENTRY(3,poRequest:PathInfo, "/"):
             WHEN 'person' THEN 
                 DO:
-                    RUN get_intr IN hHandle (INPUT poRequest:GetPathParameter('personalnumber'), OUTPUT oResponseFromCall).
+                    RUN intrPers.p SINGLE-RUN SET hHandle.
+                    RUN get_intr_on_persnr IN hHandle (INPUT poRequest:GetPathParameter('personalnumber'), OUTPUT oResponseFromCall).
+                END.
+            WHEN 'organization' THEN 
+                DO:
+                    RUN intrOrg.p SINGLE-RUN SET hHandle.
+                    RUN get_intr_on_orgnr IN hHandle (INPUT poRequest:GetPathParameter('orgnr'), OUTPUT oResponseFromCall).
                 END.
                  
         END CASE.    
@@ -94,12 +99,12 @@ CLASS IntrHandler INHERITS WebHandler:
             oResponse:StatusCode = INTEGER(StatusCodeEnum:OK)
             .
         /* This body object can be a string or something else (JsonObject for instance) */               
-/*        ASSIGN                                                                       */
-/*            oBody = NEW OpenEdge.Core.String(                                        */
-/*                             'Hello eara02'                                          */
-/*                           + '~r~n':u   /*CRLF */                                    */
-/*                           + 'This message was returned by HandleGet in IntrHandler.'*/
-/*                           ).                                                        */
+        /*        ASSIGN                                                                       */
+        /*            oBody = NEW OpenEdge.Core.String(                                        */
+        /*                             'Hello eara02'                                          */
+        /*                           + '~r~n':u   /*CRLF */                                    */
+        /*                           + 'This message was returned by HandleGet in IntrHandler.'*/
+        /*                           ).                                                        */
         
         ASSIGN 
             oResponse:Entity            = oResponseFromCall
