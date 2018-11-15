@@ -41,9 +41,19 @@ PROCEDURE get_intr_on_orgnr:
     DATASET dsIntrOrg:HANDLE:ADD-RELATION(BUFFER ttIntrOrg:HANDLE,BUFFER ttIntr:HANDLE, 'intrId,IntrId', FALSE,TRUE).
     DATA-SOURCE srcIntrOrg:QUERY:QUERY-PREPARE(DATA-SOURCE srcIntrOrg:QUERY:PREPARE-STRING + SUBSTITUTE(" WHERE introrg.orgNr = '&1' ", pcorgnr)).
     
+    
 
     ETIME(YES).
     DATASET dsIntrOrg:FILL().
+    
+    FOR EACH ttIntr:
+        IF ttIntr.IntrTypAvk <> '' THEN 
+        DO:
+            FIND FIRST Kod NO-LOCK WHERE Kod.Avk = ttIntr.IntrTypAvk AND Kod.TermKod = 'intr.IntrTypAvk' NO-ERROR.
+            IF AVAILABLE Kod THEN ASSIGN ttIntr.IntrTyp = Kod.Namn.
+        
+        END.    
+    END.
     intrObject = NEW JsonObject().
     
     DEFINE VARIABLE lok AS LOGICAL NO-UNDO.

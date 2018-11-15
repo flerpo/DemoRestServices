@@ -19,11 +19,10 @@
 
 
 /* ***************************  Main Block  *************************** */
-DEFINE TEMP-TABLE ttintr 
-FIELD IntrId AS DECIMAL INITIAL "0"
-FIELD IntrTypAvk AS CHARACTER
-FIELD KopplId AS DECIMAL INITIAL "0"
-FIELD Inaktiv AS LOGICAL INITIAL "no"
-FIELD InaktivAvIntrId AS DECIMAL INITIAL "0"
-INDEX Intr IS  PRIMARY  UNIQUE  IntrId  ASCENDING 
-INDEX KopplId IS  UNIQUE  KopplId  ASCENDING  
+DEFINE TEMP-TABLE ttintr SERIALIZE-NAME 'StakeholderInfo'
+    FIELD IntrId          LIKE intr.IntrId SERIALIZE-NAME 'StakeholderId'
+    FIELD IntrTypAvk      LIKE intr.IntrTypAvk SERIALIZE-NAME 'StakeholderTypeCode'
+    FIELD IntrTyp         AS CHARACTER SERIALIZE-NAME 'StakeholderTypeText'
+    FIELD KopplId         LIKE intr.KopplId SERIALIZE-NAME 'ConnectionId'
+    FIELD Inaktiv         LIKE intr.Inaktiv SERIALIZE-NAME 'Inactive'
+    FIELD InaktivAvIntrId LIKE intr.InaktivAvIntrId SERIALIZE-NAME 'InactivatedBy'

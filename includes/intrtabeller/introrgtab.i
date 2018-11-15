@@ -19,4 +19,7 @@
 
 
 /* ***************************  Main Block  *************************** */
-DEFINE TEMP-TABLE ttIntrOrg LIKE intrOrg .
+DEFINE TEMP-TABLE ttIntrOrg SERIALIZE-NAME 'Organization'
+    FIELD IntrId LIKE intrOrg.IntrId    SERIALIZE-NAME 'StakeholderId'
+    FIELD OrgNr  LIKE intrOrg.OrgNr     SERIALIZE-NAME 'OrganizationNumber'
+    FIELD Namn   LIKE intrOrg.Namn      SERIALIZE-NAME 'Name'
