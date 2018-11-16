@@ -9,21 +9,21 @@ DEFINE TEMP-TABLE ttLista NO-UNDO SERIALIZE-NAME 'CaseAdditions':U
     INDEX NyckelId IS PRIMARY UNIQUE NyckelId
     .
 
-{kompl.i }.
-{komplDiagnosKod.i  }.
-{komplYrke.i  }.
-{komplFullmakt.i  }.
-{komplSexMaanader.i }.
-{komplDelaegare.i  }.
-{komplFlerArbGiv.i }.
-{komplArbSkada.i }.
-{komplAarsInkomst.i }.
+{includes/kompl.i }.
+{includes/komplDiagnosKod.i  }.
+{includes/komplYrke.i  }.
+{includes/komplFullmakt.i  }.
+{includes/komplSexMaanader.i }.
+{includes/komplDelaegare.i  }.
+{includes/komplFlerArbGiv.i }.
+{includes/komplArbSkada.i }.
+{includes/komplAarsInkomst.i }.
  
  
 
 DEFINE DATASET dsUt  SERIALIZE-NAME 'CaseAdditionList':U
     {&REFERENCE-ONLY}
-    FOR ttLista,ttTmpKompl,ttTmpDiagnosKod,ttTmpYrke,ttTmpFullmakttt
+    FOR ttLista,ttTmpKompl,ttTmpDiagnosKod,ttTmpYrke,ttTmpFullmakt
     ,ttTmpDelaegare,ttTmpSexMaanader,ttTmpFlerArbGiv,ttTmpArbSkada,ttTmpAarsInkomst
     DATA-RELATION relation1 FOR ttLista,ttTmpKompl
     RELATION-FIELDS (NyckelId,NyckelId) NESTED FOREIGN-KEY-HIDDEN

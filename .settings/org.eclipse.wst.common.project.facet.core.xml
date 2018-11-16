@@ -5,5 +5,4 @@
   <installed facet="openedge.project" version="11"/>
   <installed facet="pasoe.appserver" version="11.6"/>
   <installed facet="openedge.ablservice" version="11.6"/>
-  <installed facet="openedge.ablservice.webspeed" version="11.6"/>
 </faceted-project>
