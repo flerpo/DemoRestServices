@@ -35,17 +35,13 @@ PROCEDURE get_intr_on_orgnr:
     DEFINE INPUT PARAMETER pcorgnr AS CHARACTER.
     DEFINE OUTPUT PARAMETER intrObject AS JsonObject.
     
-    MESSAGE 'letar efter inne i tjänsten org: ' pcorgnr
-        VIEW-AS ALERT-BOX.
-    
     DATASET dsIntrOrg:HANDLE:ADD-RELATION(BUFFER ttIntrOrg:HANDLE,BUFFER ttIntr:HANDLE, 'intrId,IntrId', FALSE,TRUE).
     DATA-SOURCE srcIntrOrg:QUERY:QUERY-PREPARE(DATA-SOURCE srcIntrOrg:QUERY:PREPARE-STRING + SUBSTITUTE(" WHERE introrg.orgNr = '&1' ", pcorgnr)).
     
-    
-
     ETIME(YES).
     DATASET dsIntrOrg:FILL().
     
+    /* Översättningar */
     FOR EACH ttIntr:
         IF ttIntr.IntrTypAvk <> '' THEN 
         DO:
@@ -56,7 +52,6 @@ PROCEDURE get_intr_on_orgnr:
     END.
     intrObject = NEW JsonObject().
     
-    DEFINE VARIABLE lok AS LOGICAL NO-UNDO.
     DATASET dsIntrOrg:WRITE-JSON ("JsonObject",intrObject, TRUE).
     intrObject:Add('anropstid', STRING(ETIME) + 'ms').
     
