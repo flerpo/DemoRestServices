@@ -24,6 +24,7 @@ USING Progress.Json.ObjectModel.JsonObject FROM PROPATH.
 /* ***************************  Main Block  *************************** */
 {includes/aerende.i}.
 
+
 /* **********************  Internal Procedures  *********************** */
 
 PROCEDURE get_aerende_on_aerendeid:
@@ -102,7 +103,7 @@ PROCEDURE get_aerende_on_aerendeid:
         
     END.
         
-   
+  
     DATASET  dsAerende:WRITE-JSON ("JsonObject",oSvar, TRUE).
     oSvar:Add('anropstid', STRING(ETIME) + 'ms').
     

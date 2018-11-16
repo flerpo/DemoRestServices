@@ -16,11 +16,10 @@
 /* ***************************  Main Block  *************************** */
   
 /** Dynamically generated schema file **/
-   
-	
-{includes/aerendetab.i}.
-{includes/aerendeengtab.i}.
-{includes/aerendeagstab.i}.
+   	
+{includes/aerendetabeller/aerendetab.i}.
+{includes/aerendetabeller/aerendeengtab.i}.
+{includes/aerendetabeller/aerendeagstab.i}.
 
 DEFINE TEMP-TABLE ttAerendeTFA LIKE aerendeTfa.
 DEFINE TEMP-TABLE ttAerendeEngAktiv LIKE aerendeEngAktiv.

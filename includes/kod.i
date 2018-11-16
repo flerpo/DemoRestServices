@@ -18,6 +18,4 @@
   /** Dynamically generated schema file **/
    
 	
-DEFINE TEMP-TABLE ttKod LIKE kod    .
-
-
+DEFINE TEMP-TABLE ttKod LIKE kod.
