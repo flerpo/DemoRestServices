@@ -5,8 +5,8 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://vdi5041:8080/DemoRestServices/web/aerende
   - url: http://localhost:8080/DemoRestServices/web/aerende
+  - url: http://vdi5041:8080/DemoRestServices/web/aerende
   - url: http://V7240:8080/DemoRestServices/web/aerende
 paths:
   /lista/{intrid}:
