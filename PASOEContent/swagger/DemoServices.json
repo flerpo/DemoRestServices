@@ -34,7 +34,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Pets"
+                $ref: "#/components/schemas/Aerende"
         default:
           description: unexpected error
           content:
@@ -70,22 +70,63 @@ paths:
                 $ref: "#/components/schemas/Error"
 components:
   schemas:
-    Pet:
+    Aerende:
       required:
-        - id
-        - name
+        - Claimid
+        - ClaimDate
+        - ClaimStatusCode
+        - ClaimStatusText
+        - ClaimReportedCode
+        - ClaimReportedText
+        - ProductGroupCode
+        - ProductGroupText
+        - UserId
+        - ConnectionId
+        - CreatedDate
+        - ClaimNumber
+        - WarrantCode
+        - InterperedClaimDate
+        - ClaimStatusUpdateDate
+        - AuthorizationUserId
+        - ClaimDataChangedAfterAttestation
+        - HealthWarrantCode
+        - DocumentId
+        - RecievedDate
+        - MultipleEmplpoyerCode
       properties:
-        id:
+        Caimid:
           type: integer
           format: int64
-        name:
+        ClaimDate:
           type: string
-        tag:
+          format: date
+        ClaimStatusCode:
           type: string
-    Pets:
+        ClaimStatusText:
+          type: string
+        ClaimReportedCode:
+          type: string
+        ClaimReportedText:
+          type: string
+        ProductGroupCode:
+          type: string
+        ProductGroupText:
+          type: string
+        UserId:
+          type: string
+        ConnectionId:
+          type: string
+        CreatedDate:
+          type: string
+          format: date
+        ClaimNumber:
+          type: string
+        WarrantCode:
+          type: string
+    Claim:
       type: array
       items:
-        $ref: "#/components/schemas/Pet"
+        $ref: "#/components/schemas/Aerende"
     Error:
       required:
         - code
