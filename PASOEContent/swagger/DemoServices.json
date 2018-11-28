@@ -70,7 +70,7 @@ paths:
                 $ref: "#/components/schemas/Error"
 components:
   schemas:
-    Aerende:
+    Claim:
       required:
         - Claimid
         - ClaimDate
@@ -123,10 +123,10 @@ components:
           type: string
         WarrantCode:
           type: string
-    Claim:
+    Claims:
       type: array
       items:
-        $ref: "#/components/schemas/Aerende"
+        $ref: "#/components/schemas/Claim"
     Error:
       required:
         - code
