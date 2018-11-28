@@ -1,0 +1,98 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Swagger Petstore
+  license:
+    name: MIT
+servers:
+  - url: http://vdi5041:8080/DemoRestServices/web/aerende
+  - url: http://localhost:8080/DemoRestServices/web/aerende
+  - url: http://V7240:8080/DemoRestServices/web/aerende
+paths:
+  /lista/{intrid}:
+    get:
+      summary: Lista på intressentens ärende
+      operationId: aerendeLista
+      tags:
+        - Aerende
+      parameters:
+        - name: intrid
+          in: path
+          description: Vems ärende vill du se...
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        200:
+          description: En lista med ärenden
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /detalj/{aerendeid}:
+    get:
+      summary: Info for a specific case
+      operationId: howCaseById
+      tags:
+        - Aerende
+      parameters:
+        - name: aerendeid
+          in: path
+          required: true
+          description: The id of the case to retrieve
+          schema:
+            type: string
+      responses:
+        200:
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pets"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Pet:
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tag:
+          type: string
+    Pets:
+      type: array
+      items:
+        $ref: "#/components/schemas/Pet"
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
